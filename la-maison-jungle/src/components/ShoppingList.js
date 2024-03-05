@@ -1,4 +1,5 @@
 import { plantList } from '../datas/plantList'
+import '../styles/ShoppingList.css'
 
 function ShoppingList() {
     const categories = plantList.reduce((accu, plant) => accu.includes(plant.category) ? accu : [...accu, plant.category], [])
@@ -9,11 +10,14 @@ function ShoppingList() {
                     <li key={{cat}}>{cat}</li>
                 ))}
             </ul>
-            <ul>
-                {plantList.map((plant) => (
-                    <li key={plant.id}>{plant.name}</li>
-                ))}
-            </ul>
+            <ul className='lmj-plant-list'>
+				{plantList.map((plant) => (
+					<li key={plant.id} className='lmj-plant-item'>
+						{plant.name}
+                        {plant.isSpecialOffer && <div className='lmj-sales'>Soldes</div>}
+					</li>
+				))}
+			</ul>
         </div>
     )
 }
