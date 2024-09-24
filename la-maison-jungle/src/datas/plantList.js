@@ -51,7 +51,7 @@ export const plantList = [
 		cover: monstera
 	},
 	{
-		name: 'basilique',
+		name: 'basilic',
 		category: 'extérieur',
 		id: '7ie',
 		isBestSale: true,
