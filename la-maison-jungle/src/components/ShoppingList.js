@@ -1,13 +1,11 @@
-import { plantList } from '../datas/plantList'
-import PlantItem from './PlantItem.js'
-import '../styles/ShoppingList.css'
+import { useState } from 'react';
+import { plantList } from '../datas/plantList';
+import '../styles/ShoppingList.css';
+import Categories from './Categories.js';
+import PlantItem from './PlantItem.js';
 
 function ShoppingList({ cart, updateCart }) {
-	const categories = plantList.reduce(
-		(acc, plant) =>
-			acc.includes(plant.category) ? acc : acc.concat(plant.category),
-		[]
-	)
+	const [activeCategory, setActiveCategory] = useState('');
 
 	function addToCart(name, price) {
 		const currentPlantAdded = cart.find((plant) => plant.name === name);
@@ -24,13 +22,11 @@ function ShoppingList({ cart, updateCart }) {
 
 	return (
 		<div className='lmj-shopping-list'>
-			<ul>
-				{categories.map((cat) => (
-					<li key={cat}>{cat}</li>
-				))}
-			</ul>
+			<Categories activeCategory={activeCategory} setActiveCategory={setActiveCategory}/>
 			<ul className='lmj-plant-list'>
-				{plantList.map(({ id, cover, name, water, light, price }) => (
+				{plantList
+					.filter((plant) => activeCategory === '' || plant.category === activeCategory)
+					.map(({ id, cover, name, water, light, price }) => (
 					<div key={id}>
 						<PlantItem
 							id={id}
